@@ -87,7 +87,7 @@ FILE *file_open()
 	printf("\nInput FIle Path : ");
 	scanf("%s[^\n]", file_path);
 
-	fp = fopen(file_path, "r");
+	fp = fopen(file_path, "rb");
 	if (fp == NULL)
 	{
 		printf("\n\nFile Open Error\n\n");
@@ -155,9 +155,7 @@ void dos_stub_info(FILE *fp)
 	
 	fseek(fp, sizeof(DOS_HEADER), SEEK_SET);
 	unsigned char buffer[1024];
-	fread(buffer, sizeof(char), dos_header.e_lfanew - sizeof(DOS_HEADER), fp);
-
-	
+	size_t ret = fread(buffer, sizeof(char), dos_header.e_lfanew - sizeof(DOS_HEADER), fp);
 
 
 	printf("offset(h)  ");
@@ -165,7 +163,7 @@ void dos_stub_info(FILE *fp)
 	printf("\n==========================================================\n");
 
 
-	for (int i = 0; i < 32; i++)
+	for (int i = 0; i < ret / 16 + 1; i++)
 	{
 		printf("%08X   ", (16 * i));
 		for (int j = 0; j < 16; j++)
@@ -257,14 +255,15 @@ void read_section(FILE *fp)
 	unsigned char buffer[400];
 	section_header = (SECTION_HEADER*)malloc(sizeof(SECTION_HEADER) * NumberOfSections);
 
+
+	//fread(buffer, sizeof(char), 400, fp);
+
 	for (int i = 0; i < NumberOfSections; i++)
 	{
-		
-	//	int cur = ftell(fp);
-	//	printf("%d\n", cur);
-		fread(buffer, sizeof(SECTION_HEADER), 1, fp);
+		//printf("%d\n", i);
+		size_t ret = fread(buffer, sizeof(char), sizeof(SECTION_HEADER), fp);
 		section_header[i] = *(SECTION_HEADER*)buffer;
-		//fseek(fp, cur + 40, SEEK_SET);
+	//	fseek(fp, cur + 40, SEEK_SET);
 	}
 }
 
