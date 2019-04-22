@@ -11,15 +11,18 @@
 
 
 DOS_HEADER dos_header;
+unsigned char *dos_stub;
 NT_HEADERS32 nt_header;
 SECTION_HEADER *section_header;
+bool isOpen;
 
-FILE *file_open();
+void file_open(char *path);
 
 void read_dos(FILE *fp);
 void dos_header_info();
 
-void dos_stub_info(FILE * fp);
+void read_dos_stub(FILE *fp);
+void dos_stub_info();
 
 void read_nt(FILE *fp);
 void nt_header_info();
@@ -29,30 +32,32 @@ void section_header_info();
 
 int main()
 {
-	FILE *fp = NULL;
-
+	isOpen = false;
 	int menu;
+	char path[MAX_PATH];
+
 	while (1)
 	{
-		printf("0. 종료\n");
-		printf("1. 파일 열기\n");
+		printf("0. Exit\n");
+		printf("1. File Open\n");
 		printf("2. DOS_HEADER\n");
 		printf("3. DOS_STUB\n");
 		printf("4. NT_HEADER\n");
 		printf("5. SECTION_HEADERS\n");
-		printf("메뉴 선택 : ");
+		printf("Select Menu : ");
 		scanf("%d", &menu);
 
 		switch (menu)
 		{
-		case 0:
-			if (fp != NULL)	fclose(fp);
-			//free(section_header);
+		case 0:;
+			free(section_header);
 			return -1;
 			break;
 
 		case 1:
-			fp = file_open();
+			printf("\nInput FIle Path : ");
+			scanf("%s[^\n]", path);
+			file_open(path);
 			break;
 
 		case 2:
@@ -60,7 +65,7 @@ int main()
 			break;
 
 		case 3:
-			dos_stub_info(fp);
+			dos_stub_info();
 			break;
 
 		case 4:
@@ -73,25 +78,18 @@ int main()
 		}
 	}
 
-	fclose(fp);
-
 	return 0;
 }
 
-FILE *file_open()
+void file_open(char *path)
 {
 	FILE *fp;
-	char file_path[MAX_PATH];
 
-
-	printf("\nInput FIle Path : ");
-	scanf("%s[^\n]", file_path);
-
-	fp = fopen(file_path, "rb");
+	fp = fopen(path, "rb");
 	if (fp == NULL)
 	{
 		printf("\n\nFile Open Error\n\n");
-		return fp;
+		isOpen = false;
 	}
 	else
 	{
@@ -99,10 +97,13 @@ FILE *file_open()
 	}
 
 	read_dos(fp);
+	read_dos_stub(fp);
 	read_nt(fp);
 	read_section(fp);
 
-	return fp;
+	fclose(fp);
+
+	isOpen = true;
 }
 
 void read_dos(FILE *fp)
@@ -116,6 +117,11 @@ void read_dos(FILE *fp)
 
 void dos_header_info()
 {
+	if (!isOpen)
+	{
+		printf("File Open First!\n\n");
+		return;
+	}
 	printf("\nsignature : %c%c\n", dos_header.e_magic[0], dos_header.e_magic[1]);
 	printf("lastsize : %04X\n", dos_header.e_cblp);
 	printf("nblocks : %04X\n", dos_header.e_cp);
@@ -144,37 +150,45 @@ void dos_header_info()
 	printf("offset to NT header : %X\n\n", dos_header.e_lfanew);
 }
 
-void dos_stub_info(FILE *fp)
+void read_dos_stub(FILE *fp)
 {
 	if (fp == NULL)
 	{
 		printf("\n\nFile Open First\n\n");
 		return;
 	}
-
-	
 	fseek(fp, sizeof(DOS_HEADER), SEEK_SET);
-	unsigned char buffer[1024];
-	size_t ret = fread(buffer, sizeof(char), dos_header.e_lfanew - sizeof(DOS_HEADER), fp);
 
+	int size = dos_header.e_lfanew - sizeof(DOS_HEADER);
 
+	dos_stub = (unsigned char*)malloc(sizeof(char) * size);
+	size_t ret = fread(dos_stub, sizeof(char), size, fp);
+
+}
+void dos_stub_info()
+{
+	if (!isOpen)
+	{
+		printf("File Open First!\n\n");
+		return;
+	}
 	printf("offset(h)  ");
 	for (int i = 0; i < 16; i++)	printf("%02X ", i);
 	printf("\n==========================================================\n");
 
-
-	for (int i = 0; i < ret / 16 + 1; i++)
+	int size = (dos_header.e_lfanew - sizeof(DOS_HEADER)) / 16 + 1;
+	for (int i = 0; i < size; i++)
 	{
 		printf("%08X   ", (16 * i));
 		for (int j = 0; j < 16; j++)
 		{
-			printf("%02X ", buffer[16 * i + j]);
+			printf("%02X ", dos_stub[16 * i + j]);
 		}
 		printf("  ");
 		for (int l = 0; l < 16; l++)
 		{
-			if (buffer[16 * i + l] <= 127 && buffer[16 * i + l] >= 15)
-				printf("%c", buffer[16 * i + l]);
+			if (dos_stub[16 * i + l] <= 127 && dos_stub[16 * i + l] >= 15)
+				printf("%c", dos_stub[16 * i + l]);
 
 			else
 				printf(".");
@@ -196,6 +210,11 @@ void read_nt(FILE *fp)
 
 void nt_header_info()
 {
+	if (!isOpen)
+	{
+		printf("File Open First!\n\n");
+		return;
+	}
 	printf("\nSignature : %08X\n", nt_header.Signature);
 
 	printf("\n------------FILE HEADER------------\n");
@@ -255,20 +274,20 @@ void read_section(FILE *fp)
 	unsigned char buffer[400];
 	section_header = (SECTION_HEADER*)malloc(sizeof(SECTION_HEADER) * NumberOfSections);
 
-
-	//fread(buffer, sizeof(char), 400, fp);
-
 	for (int i = 0; i < NumberOfSections; i++)
 	{
-		//printf("%d\n", i);
 		size_t ret = fread(buffer, sizeof(char), sizeof(SECTION_HEADER), fp);
 		section_header[i] = *(SECTION_HEADER*)buffer;
-	//	fseek(fp, cur + 40, SEEK_SET);
 	}
 }
 
 void section_header_info()
 {
+	if (!isOpen)
+	{
+		printf("File Open First!\n\n");
+		return;
+	}
 	for (int i = 0; i < nt_header.FileHeader.NumberOfSections; i++)
 	{
 		printf("\n\n---------------%s---------------\n", section_header[i].Name);
