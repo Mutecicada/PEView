@@ -33,6 +33,7 @@ typedef struct _FILE_HEADER {
 	WORD    Characteristics;
 } FILE_HEADER, *FILE_HEADER_PTR;
 
+
 typedef struct _OPTIONAL_HEADER32 {
 	//
 	// Standard fields.
@@ -76,6 +77,38 @@ typedef struct _OPTIONAL_HEADER32 {
 	IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
 } OPTIONAL_HEADER32, *OPTIONAL_HEADER32_PTR;
 
+typedef struct _OPTIONAL_HEADER64 {
+	WORD        Magic;
+	BYTE        MajorLinkerVersion;
+	BYTE        MinorLinkerVersion;
+	DWORD       SizeOfCode;
+	DWORD       SizeOfInitializedData;
+	DWORD       SizeOfUninitializedData;
+	DWORD       AddressOfEntryPoint;
+	DWORD       BaseOfCode;
+	ULONGLONG   ImageBase;
+	DWORD       SectionAlignment;
+	DWORD       FileAlignment;
+	WORD        MajorOperatingSystemVersion;
+	WORD        MinorOperatingSystemVersion;
+	WORD        MajorImageVersion;
+	WORD        MinorImageVersion;
+	WORD        MajorSubsystemVersion;
+	WORD        MinorSubsystemVersion;
+	DWORD       Win32VersionValue;
+	DWORD       SizeOfImage;
+	DWORD       SizeOfHeaders;
+	DWORD       CheckSum;
+	WORD        Subsystem;
+	WORD        DllCharacteristics;
+	ULONGLONG   SizeOfStackReserve;
+	ULONGLONG   SizeOfStackCommit;
+	ULONGLONG   SizeOfHeapReserve;
+	ULONGLONG   SizeOfHeapCommit;
+	DWORD       LoaderFlags;
+	DWORD       NumberOfRvaAndSizes;
+	IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
+} OPTIONAL_HEADER64, *OPTIONAL_HEADER64_PTR;
 
 typedef struct _NT_HEADERS32 {
 
@@ -86,6 +119,12 @@ typedef struct _NT_HEADERS32 {
 	OPTIONAL_HEADER32 OptionalHeader;
 
 } NT_HEADERS32, *NT_HEADERS32_PTR;
+
+typedef struct _NT_HEADERS64 {
+	DWORD Signature;
+	_FILE_HEADER FileHeader;
+	IMAGE_OPTIONAL_HEADER64 OptionalHeader;
+} NT_HEADERS64, *NT_HEADERS64_PTR;
 
 typedef struct _SECTION_HEADER {
 	BYTE Name[IMAGE_SIZEOF_SHORT_NAME];
