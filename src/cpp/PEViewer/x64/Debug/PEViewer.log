@@ -1,0 +1,22 @@
+﻿  PEView.cpp
+c:\mutecicada\peview\src\peviewer\peview.cpp(312): warning C4477: 'printf' : 서식 문자열 '%08X'에 'unsigned int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'ULONGLONG'입니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(312): note: 서식 문자열에서 '%llX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(312): note: 서식 문자열에서 '%IX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(312): note: 서식 문자열에서 '%I64X'을(를) 사용하는 것이 좋습니다.
+c:\mutecicada\peview\src\peviewer\peview.cpp(327): warning C4477: 'printf' : 서식 문자열 '%08X'에 'unsigned int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'ULONGLONG'입니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(327): note: 서식 문자열에서 '%llX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(327): note: 서식 문자열에서 '%IX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(327): note: 서식 문자열에서 '%I64X'을(를) 사용하는 것이 좋습니다.
+c:\mutecicada\peview\src\peviewer\peview.cpp(328): warning C4477: 'printf' : 서식 문자열 '%08X'에 'unsigned int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'ULONGLONG'입니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(328): note: 서식 문자열에서 '%llX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(328): note: 서식 문자열에서 '%IX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(328): note: 서식 문자열에서 '%I64X'을(를) 사용하는 것이 좋습니다.
+c:\mutecicada\peview\src\peviewer\peview.cpp(329): warning C4477: 'printf' : 서식 문자열 '%08X'에 'unsigned int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'ULONGLONG'입니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(329): note: 서식 문자열에서 '%llX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(329): note: 서식 문자열에서 '%IX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(329): note: 서식 문자열에서 '%I64X'을(를) 사용하는 것이 좋습니다.
+c:\mutecicada\peview\src\peviewer\peview.cpp(330): warning C4477: 'printf' : 서식 문자열 '%08X'에 'unsigned int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'ULONGLONG'입니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(330): note: 서식 문자열에서 '%llX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(330): note: 서식 문자열에서 '%IX'을(를) 사용하는 것이 좋습니다.
+  c:\mutecicada\peview\src\peviewer\peview.cpp(330): note: 서식 문자열에서 '%I64X'을(를) 사용하는 것이 좋습니다.
+  PEViewer.vcxproj -> C:\Mutecicada\PEView\src\x64\Debug\PEViewer.exe
