@@ -1,0 +1,40 @@
+﻿<Window x:Class="PEView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PEView"
+        mc:Ignorable="d"
+        Title="PEVIewer" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*" />
+            <ColumnDefinition Width="300*" />
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="MyList" Grid.Column="1" HorizontalAlignment="Left" Height="400.4" Margin="10,10,0,0" VerticalAlignment="Top" Width="575.2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn x:Name="offset" Header="Offset" Width="75" />
+                    <GridViewColumn x:Name="data" Header="Data" Width="100" />
+                    <GridViewColumn x:Name="description" Header="Description" Width="150"/>
+                    <GridViewColumn x:Name="value"  Header="Value" Width="150" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TreeView x:Name="PETree" Margin="10">
+            <TreeViewItem Header="PEVIEW" x:Name="PETop">
+                <TreeViewItem Header="DOS HEADERS"></TreeViewItem>
+                <TreeViewItem Header="DOS_STUB"></TreeViewItem>
+                <TreeViewItem Header="NT HEADERS" x:Name="NT">
+                    <TreeViewItem Header="Signature"/>
+                    <TreeViewItem Header="FILE_HEADER"/>
+                    <TreeViewItem Header="OPTION_HEADER"/>
+                </TreeViewItem>
+            </TreeViewItem>
+        </TreeView>
+
+    </Grid>
+
+
+
+</Window>
