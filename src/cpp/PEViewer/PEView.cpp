@@ -228,6 +228,135 @@ void read_nt(FILE *fp)
 
 }
 
+/*
+	   void test()
+		{
+			int[] dos_size = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 };
+			string[] dos_des = {
+			"signature",
+			"lastsize",
+			"nblocks",
+			"nreloc",
+			"hdrsize",
+			"minalloc",
+			"maxalloc",
+			"ss",
+			"sp",
+			"checksum",
+			"ip",
+			"cs",
+			"relocpos",
+			"noverlay",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"OEM Identifier",
+			"OEN Information",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"Reserved",
+			"offset to NT header"
+			};
+
+			int[] nt32_size = {
+				4,                                      // Signature
+				2, 2, 4, 4, 4, 2, 2,                    // File Header
+				2, 1, 1, 4, 4, 4, 4, 4, 4,              // Optional Header Standard fields.
+				4, 4, 4, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2, 4, 4, 4, 4, 4, 4,      //  NT additional fields.
+				4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4          // DataDirectory
+			};
+
+			int nt_Isig = 4;
+			string nt_Ssig = "Signature";
+
+			int[] nt_IFile = { 2, 2, 4, 4, 4, 2, 2 };
+			string[] nt_SFile = {
+			"Machine",
+			"Number of Sections",
+			"TIme Date Stamp",
+			"Pointer to Symbol Table",
+			"Number of Symbols",
+			"Size Of Optional Header",
+			"Characteristics"
+			};
+
+			int[] nt32_IOptional =
+			{
+				2, 1, 1, 4, 4, 4, 4, 4, 4,              // Optional Header Standard fields.
+				4, 4, 4, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2, 4, 4, 4, 4, 4, 4,      //  NT additional fields.
+
+			};
+			string[] nt32_Optional =
+			{
+			"Magic",
+			"Major Linker Version",
+			"Minor Linker Version",
+			"Size of Code",
+			"Size Of Initialized Data",
+			"Size Of Uninitialized Data",
+			"Address of Entry Point",
+			"Base of Code",
+			"Base of Data",
+			"Image Baase :",
+			"Section Alignment",
+			"File Alignment",
+			"Majog O/S Version",
+			"Minor O/S Version",
+			"Major Image Versoin",
+			"Minor Image Version",
+			"Major Subsystem Version",
+			"Minor Subsystem Version",
+			"Win32 Version Value",
+			"Size of Image",
+			"Size of Headers",
+			"Checksum",
+			"Subsystem",
+			"DLL Characteristics",
+			"Size of Stack Reserve",
+			"Size of Stack Commit",
+			"Size of Heap Reserve",
+			"Size of Heap Commit",
+			"Loader Flags",
+			"Number of Data Directories",
+
+
+			"RVA ",
+			"Size"
+				};
+
+
+			int[] nt64_size = {
+				4,
+				2, 2, 4, 4, 4, 2, 2,
+				2, 1, 1, 4, 4, 4, 4, 4,
+				8, 4, 4, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2, 8, 8, 8, 4, 4,
+				4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
+			};
+
+
+			string[] nt64_des = { };
+
+			int[] section_size = { 8, 4, 4, 4, 4, 4, 4, 2, 2, 4 };
+			string[] section_des = {
+			"Virtual SIze",
+			"Virtual Addresss(RVA)",
+			"Size of Raw Data",
+			"Pointer to Raw Data",
+			"Characteristics"
+			};
+
+
+		}
+*/
+
 void nt_header_info()
 {
 	if (!isOpen)

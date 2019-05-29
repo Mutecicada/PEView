@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -32,9 +29,34 @@ namespace PEView
             return obj;                                             // 구조체 리턴
         }
 
+        public void setBinderList()
+        {
+            
+
+            dos_binder.Add(new Binder(offset.ToString(), new string(dos_header.e_magic), nameof(dos_header.e_magic), "TEST"));
+            
+
+            nt_binder.Add(new Binder(offset.ToString(), nt_header32.Signature.ToString(), "Signature", "Test"));
+  //          offset += nt_header32.Signature;
+
+            int numberofsections;
+            if (is32)
+                numberofsections = nt_header32.FileHeader.NumberOfSections;
+
+            else
+                numberofsections = nt_header64.FileHeader.NumberOfSections;
+
+            sections_binder = new List<List<Binder>>(numberofsections);
+            for(int i = 0; i < numberofsections; i++ )
+            {
+                //sections_binder[i].Add(new Binder(offset.ToString(), section_headers[i].Name.ToString(),  "Name", "value"));
+                offset += 8;
+            }
+        }
+
 
         [StructLayout(LayoutKind.Sequential, Size = 1)]
-        public struct _DOS_HEADER  
+        public class _DOS_HEADER  
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
             public char[] e_magic;                     // 2
@@ -61,7 +83,7 @@ namespace PEView
         }
 
         [StructLayout(LayoutKind.Sequential, Size = 1)]
-        public struct _FILE_HEADER  
+        public class _FILE_HEADER
         {
             ushort Machine;
             public ushort NumberOfSections;
@@ -80,7 +102,7 @@ namespace PEView
         }
 
         [StructLayout(LayoutKind.Sequential, Size = 1)]
-        public struct _OPTIONAL_HEADER32  
+        public class _OPTIONAL_HEADER32  
         {
             //
             // Standard fields.
@@ -125,7 +147,7 @@ namespace PEView
         }
 
         [StructLayout(LayoutKind.Sequential, Size = 1)]
-        public struct _OPTIONAL_HEADER64  
+        public class _OPTIONAL_HEADER64  
         {
             ushort Magic;
             byte MajorLinkerVersion;
@@ -161,7 +183,7 @@ namespace PEView
         }
 
         [StructLayout(LayoutKind.Sequential, Size = 1)]
-        public struct _NT_HEADERS32  
+        public class _NT_HEADERS32
         {
 
             public uint Signature;
@@ -173,7 +195,7 @@ namespace PEView
         }
 
         [StructLayout(LayoutKind.Sequential, Size = 1)]
-        public struct _NT_HEADERS64  
+        public class _NT_HEADERS64  
         {
             uint Signature;
             public _FILE_HEADER FileHeader;
@@ -181,7 +203,7 @@ namespace PEView
         }
 
         [StructLayout(LayoutKind.Sequential, Size = 1)]
-        public struct _SECTION_HEADER  
+        public class _SECTION_HEADER  
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
             public char[] Name;
@@ -202,11 +224,18 @@ namespace PEView
 
         }
 
-
         public _DOS_HEADER dos_header;
         public _NT_HEADERS32 nt_header32;
         public _NT_HEADERS64 nt_header64;
         public _SECTION_HEADER[] section_headers;
+
+        uint offset = 0;
+        public bool is32;
+
+        public List<Binder> dos_binder = new List<Binder>();
+        public List<Binder> nt_binder = new List<Binder>();
+        public List<List<Binder>> sections_binder = new List<List<Binder>>();
     }
+
 }
 

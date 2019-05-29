@@ -86,6 +86,7 @@ typedef struct _OPTIONAL_HEADER64 {
 	DWORD       SizeOfUninitializedData;
 	DWORD       AddressOfEntryPoint;
 	DWORD       BaseOfCode;
+
 	ULONGLONG   ImageBase;
 	DWORD       SectionAlignment;
 	DWORD       FileAlignment;

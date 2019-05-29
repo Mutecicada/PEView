@@ -11,24 +11,24 @@
             <ColumnDefinition Width="100*" />
             <ColumnDefinition Width="300*" />
         </Grid.ColumnDefinitions>
-        <ListView x:Name="MyList" Grid.Column="1" HorizontalAlignment="Left" Height="400.4" Margin="10,10,0,0" VerticalAlignment="Top" Width="575.2">
+        <ListView x:Name="MyList" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="400.4" Width="575.2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn x:Name="offset" Header="Offset" Width="75" />
-                    <GridViewColumn x:Name="data" Header="Data" Width="100" />
-                    <GridViewColumn x:Name="description" Header="Description" Width="150"/>
-                    <GridViewColumn x:Name="value"  Header="Value" Width="150" />
+                    <GridViewColumn x:Name="offset" Header="Offset" Width="75" DisplayMemberBinding="{Binding offset}"/>
+                    <GridViewColumn x:Name="data" Header="Data" Width="100" DisplayMemberBinding="{Binding data}"/>
+                    <GridViewColumn x:Name="description" Header="Description" Width="150" DisplayMemberBinding="{Binding description}"/>
+                    <GridViewColumn x:Name="value"  Header="Value" Width="150" DisplayMemberBinding="{Binding value}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <TreeView x:Name="PETree" Margin="10">
+        <TreeView x:Name="PETree" Margin="10" SelectedItemChanged="PETree_SelectedItemChanged">
             <TreeViewItem Header="PEVIEW" x:Name="PETop">
-                <TreeViewItem Header="DOS HEADERS"></TreeViewItem>
+                <TreeViewItem Header="DOS_HEADERS"></TreeViewItem>
                 <TreeViewItem Header="DOS_STUB"></TreeViewItem>
                 <TreeViewItem Header="NT HEADERS" x:Name="NT">
                     <TreeViewItem Header="Signature"/>
                     <TreeViewItem Header="FILE_HEADER"/>
-                    <TreeViewItem Header="OPTION_HEADER"/>
+                    <TreeViewItem Header="OPTIONAL_HEADER"/>
                 </TreeViewItem>
             </TreeViewItem>
         </TreeView>
