@@ -83,7 +83,7 @@ namespace PEView
 
             for (int i = 0; i < numberofsections; i++)
             {
-                TreeViewItem section = new TreeViewItem();
+                TreeViewItem section = new TreeViewItem();       
                 section.Header = String.Join("", pe.section_headers[i].Name);
              // section.Name = String.Join("", pe.section_headers[i].Name);
                 PETop.Items.Add(section);
@@ -106,21 +106,29 @@ namespace PEView
                         MyList.ItemsSource = pe.dos_binder;
                         break;
 
-                    case "DOS_STUB" :
-                        MyList.ItemsSource = pe.nt_binder;
-                        break;
-                        
-                    case "Signautre" :
+                    case "Signature":
                         MyList.ItemsSource = pe.nt_binder.GetRange(0, 1);
                         break;
 
                     case "FILE_HEADER" :
                         MyList.ItemsSource = pe.nt_binder.GetRange(1, 7);
-                        
                         break;
 
                     case "OPTIONAL_HEADER" :
-                        MyList.ItemsSource = pe.nt_binder;
+                        MyList.ItemsSource = pe.nt_binder.GetRange(8, pe.nt_binder.Count - 8);
+                        break;
+
+                    default:
+                        //header = header.Replace("\0", string.Empty);
+                        for (int i = 0; i < pe.nt_header32.FileHeader.NumberOfSections; i++)
+                        {
+                            if(string.Equals(header, new string(pe.section_headers[i].Name)))
+                            {
+                                MyList.ItemsSource = pe.sections_binder[i];
+                                break;
+                            }
+                            
+                        }
                         break;
                 }
 

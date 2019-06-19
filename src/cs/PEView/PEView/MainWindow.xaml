@@ -17,14 +17,13 @@
                     <GridViewColumn x:Name="offset" Header="Offset" Width="75" DisplayMemberBinding="{Binding offset}"/>
                     <GridViewColumn x:Name="data" Header="Data" Width="100" DisplayMemberBinding="{Binding data}"/>
                     <GridViewColumn x:Name="description" Header="Description" Width="150" DisplayMemberBinding="{Binding description}"/>
-                    <GridViewColumn x:Name="value"  Header="Value" Width="150" DisplayMemberBinding="{Binding value}"/>
+                    <GridViewColumn x:Name="value"  Header="Value" Width="200" DisplayMemberBinding="{Binding value}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <TreeView x:Name="PETree" Margin="10" SelectedItemChanged="PETree_SelectedItemChanged">
             <TreeViewItem Header="PEVIEW" x:Name="PETop">
                 <TreeViewItem Header="DOS_HEADERS"></TreeViewItem>
-                <TreeViewItem Header="DOS_STUB"></TreeViewItem>
                 <TreeViewItem Header="NT HEADERS" x:Name="NT">
                     <TreeViewItem Header="Signature"/>
                     <TreeViewItem Header="FILE_HEADER"/>
